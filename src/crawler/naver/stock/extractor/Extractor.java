@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,14 +23,18 @@ public class Extractor {
 	public static void main(String[] args) {
 		// 1. DB에서 Stock정보 조회해서  List<Stock> 만들기
 		//	settlement_type별, settlement_yyyymm 순서대로 조회
-		List<Stock> stocks = getStockList();
+		Collection<Stock> stocks = getStockList();
 		
 		// 2. 원하는 전략을 이용하여 종목 추출하기
-		
+		NetIncomeStrategy nis = new NetIncomeStrategy();
+		List<Stock> extracted = nis.extract(stocks);
+		for (Stock stock : extracted) {
+			logger.info("{} {}", stock.getCode(), stock.getName() );
+		}
 		
 	}
 
-	private static List<Stock> getStockList() {
+	private static Collection<Stock> getStockList() {
 		Connection con = null;
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -99,7 +104,6 @@ public class Extractor {
 			logger.error("{}",e);
 		}
 		
-		
-		return (List<Stock>) stocks.values();
+		return stocks.values();
 	}
 }
