@@ -17,7 +17,7 @@ public class RecentOutput {
 	protected int bps;	// BPS(원)
 	protected int dividendsPerShare;	// 주당배당금(원)
 	protected float marketValueDividendRate;	// 시가배당률(%)
-	protected float payoutRatio;	// 배당성향(%)
+	protected float payoutRate;	// 배당성향(%)
 	
 	public String getSettlementType() {
 		return settlementType;
@@ -103,11 +103,11 @@ public class RecentOutput {
 	public void setMarketValueDividendRate(float marketValueDividendRate) {
 		this.marketValueDividendRate = marketValueDividendRate;
 	}
-	public float getPayoutRatio() {
-		return payoutRatio;
+	public float getPayoutRate() {
+		return payoutRate;
 	}
-	public void setPayoutRatio(float payoutRatio) {
-		this.payoutRatio = payoutRatio;
+	public void setPayoutRate(float payoutRate) {
+		this.payoutRate = payoutRate;
 	}
 	public float getRoe() {
 		return roe;
@@ -148,8 +148,8 @@ public class RecentOutput {
 		builder.append(dividendsPerShare);
 		builder.append(", marketValueDividendRate=");
 		builder.append(marketValueDividendRate);
-		builder.append(", payoutRatio=");
-		builder.append(payoutRatio);
+		builder.append(", payoutRate=");
+		builder.append(payoutRate);
 		builder.append("]");
 		return builder.toString();
 	}

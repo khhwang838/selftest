@@ -7,7 +7,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +19,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.postgresql.util.PSQLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -152,9 +150,9 @@ public class Crawler {
 						validNumbers = marketValueDividendRate > 0 || marketValueDividendRate < 0 ? true : validNumbers;
 						break;
 					case 13:
-						float payoutRatio = Float.valueOf(getValueStringFromTd(tdData));
-						recentOutput.setPayoutRatio(payoutRatio);
-						validNumbers = payoutRatio > 0 || payoutRatio < 0 ? true : validNumbers;
+						float payoutRate = Float.valueOf(getValueStringFromTd(tdData));
+						recentOutput.setPayoutRate(payoutRate);
+						validNumbers = payoutRate > 0 || payoutRate < 0 ? true : validNumbers;
 						break;
 					default:
 						break;
@@ -166,7 +164,6 @@ public class Crawler {
 			}
 			
 			// 종목 단위로 데이터베이스에 저장
-			int index = 0;
 			try {
 				con = DriverManager.getConnection(url, user, password);
 				stmt = con.prepareStatement(INSERT_DATA);
@@ -191,7 +188,7 @@ public class Crawler {
 					stmt.setString(15, String.valueOf(recentOutputs.get(j).getBps()));
 					stmt.setString(16, String.valueOf(recentOutputs.get(j).getDividendsPerShare()));
 					stmt.setString(17, String.valueOf(recentOutputs.get(j).getMarketValueDividendRate()));
-					stmt.setString(18, String.valueOf(recentOutputs.get(j).getPayoutRatio()));
+					stmt.setString(18, String.valueOf(recentOutputs.get(j).getPayoutRate()));
 					
 					stmt.addBatch();
 				}
