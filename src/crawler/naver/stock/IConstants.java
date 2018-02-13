@@ -3,8 +3,8 @@ package crawler.naver.stock;
 public interface IConstants {
 	
 	interface TYPE {
-		String YEAR = "YEAR";
-		String QUARTER = "QUARTER";
+		String YEAR = "year";
+		String QUARTER = "quarter";
 	}
 	interface ITEM {
 		String CODE = "CODE";
