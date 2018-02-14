@@ -22,5 +22,8 @@ public class ASCIItoString {
 		String out = "";
 		out += (char)65;
 		System.out.println(out);
+		
+		System.out.println(out.toCharArray());
+		
 	}
 }
