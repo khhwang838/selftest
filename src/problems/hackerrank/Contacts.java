@@ -2,6 +2,37 @@ package problems.hackerrank;
 
 import java.util.Scanner;
 
+/**
+ * Hackerrank.com
+ * Tries: Contacts
+ * -----------------
+ * Sample Input
+ * 
+ * 4
+ * add hack
+ * add hackerrank
+ * find hac
+ * find hak
+ * 
+ * Sample Output
+ * 
+ * 2
+ * 0
+ * -----------------
+ * 
+ * 입력은 "operation value" 형태
+ * operation은 add와 find가 있음
+ * add는 value을 name으로 추가
+ * find는 value로 시작하는 name이 있을 경우 개수를 출력
+ * 
+ * @author Kihyun
+ * @created   2018-02-15
+ */
+
+
+
+
+
 public class Contacts {
 	
 	final static Node root = new Node();

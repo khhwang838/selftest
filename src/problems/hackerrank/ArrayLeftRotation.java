@@ -3,6 +3,9 @@ package problems.hackerrank;
 import java.util.Scanner;
 
 /**
+ * Hackerrank.com
+ * Arrays: Left Rotation
+ * 
  * 배열의 개수 및 로테이션 횟수를 입력받고
  * 배열의 내용을 입력하면
  * 로테이션 횟수만큼 로테이션된 결과를 출력
