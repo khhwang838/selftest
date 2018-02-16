@@ -15,12 +15,19 @@ public class DetectCycle {
 		int data;
 		Node next;
 	}
+	/*
+	 * 내가 푼 해답
+	 */
 	Set<Node> dup = new HashSet<>();
 	boolean hasCycle(Node head) {
 	    if (head == null ) {
+            dup = new HashSet<>();
 	    	return false;
 	    }
-	    if ( dup.contains(head) ) return true;
+	    if ( dup.contains(head) ) {
+            dup = new HashSet<>();
+            return true;
+        }
 	    dup.add(head);
 	    return hasCycle(head.next);
 	}
