@@ -6,11 +6,11 @@ import java.util.Scanner;
 public class Main {
 
 	public static void main(String[] args) {
-		Date d = new Date(1513231414000L);
-		System.out.println(d);
+		Date f = new Date(1513231414000L);
+		System.out.println(f);
 		
 		// TODO : delete
-		System.out.println(d);
+		System.out.println(f);
 	}
 	private static void test2() {
 		String a = "";
