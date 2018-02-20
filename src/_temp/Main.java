@@ -1,10 +1,25 @@
 package _temp;
 
+import java.util.Date;
 import java.util.Scanner;
 
 public class Main {
 
 	public static void main(String[] args) {
+		Date d = new Date(1513231414000L);
+		System.out.println(d);
+	}
+	private static void test2() {
+		String a = "";
+		String b = new String("");
+		String c = String.valueOf("");
+		System.out.println(a==b);
+		System.out.println(a.equals(b));
+		
+		System.out.println(a==c);
+		System.out.println(a.equals(c));
+	}
+	private static void test1() {
 		Scanner sc = new Scanner(System.in);
 
 		int numOfTestCases = sc.nextInt();
