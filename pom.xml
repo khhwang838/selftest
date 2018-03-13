@@ -26,6 +26,20 @@
 		</plugins>
 	</build>
 	<dependencies>
+
+		<!-- JSON 핸들러 -->
+		<dependency>
+		    <groupId>com.google.code.gson</groupId>
+		    <artifactId>gson</artifactId>
+		    <version>2.8.2</version>
+		</dependency>
+
+		<!-- csv 파일 핸들링 라이브러리 -->	
+		<dependency>
+		    <groupId>net.sf.supercsv</groupId>
+		    <artifactId>super-csv</artifactId>
+		    <version>2.4.0</version>
+		</dependency>
 		<!-- PostgreSLQ 드라이버 -->
 		<dependency>
 		    <groupId>postgresql</groupId>
