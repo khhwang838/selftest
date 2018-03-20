@@ -1,5 +1,6 @@
 package watch_service;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -13,7 +14,11 @@ public class MyWatchService {
 	public static void main(String[] args) throws IOException, InterruptedException {
 		
 		
-		String configFilePath = "D:\\chatbot\\aibot\\conf";
+		String configFilePath = "D:\\chatbot\\aibot\\conf\\commons.properties";
+		int lastIndexOfSeparator = configFilePath.lastIndexOf(File.separator);
+		String configDirPath = configFilePath.substring(0, lastIndexOfSeparator);
+		System.out.println(configDirPath);
+		
 		Path path = Paths.get(configFilePath);
 		WatchService watchService = path.getFileSystem().newWatchService();
 		path.register(watchService, StandardWatchEventKinds.ENTRY_MODIFY);
