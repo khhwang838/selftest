@@ -1,4 +1,4 @@
-package problems.codility.training.timecomplexity;
+package problems.codility.training.time_complexity;
 
 /**
  * N개의 distinct한 숫자를 갖는 배열 A를 input으로 받아 missing 숫자를 리턴하기.
