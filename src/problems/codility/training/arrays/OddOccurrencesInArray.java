@@ -1,4 +1,4 @@
-package problems.codility.training;
+package problems.codility.training.arrays;
 
 /**
  * 배열안에 pair를 이루지 못하는 (홀수번만 출현하는) 숫자 찾아서 리턴하기

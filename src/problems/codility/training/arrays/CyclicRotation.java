@@ -1,4 +1,4 @@
-package problems.codility.training;
+package problems.codility.training.arrays;
 
 public class CyclicRotation {
 	
