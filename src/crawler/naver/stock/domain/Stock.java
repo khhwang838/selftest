@@ -7,7 +7,7 @@ public class Stock {
 
 	private String code;
 	private String name;
-	private final List<RecentOutput> ro = new ArrayList<RecentOutput>();
+	private final List<RecentOutput> recentOutputs = new ArrayList<RecentOutput>();
 
 	public Stock(String code, String name) {
 		this.code = code;
@@ -30,8 +30,8 @@ public class Stock {
 		this.name = name;
 	}
 
-	public List<RecentOutput> getRo() {
-		return ro;
+	public List<RecentOutput> getRecentOutputs() {
+		return recentOutputs;
 	}
 
 	@Override
@@ -41,8 +41,8 @@ public class Stock {
 		builder.append(code);
 		builder.append(", name=");
 		builder.append(name);
-		builder.append(", ro=");
-		builder.append(ro);
+		builder.append(", recentOutputs=");
+		builder.append(recentOutputs);
 		builder.append("]");
 		return builder.toString();
 	}

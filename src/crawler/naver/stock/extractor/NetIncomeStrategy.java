@@ -24,7 +24,7 @@ public class NetIncomeStrategy implements IExtractStrategy {
 	public List<Stock> extract(Collection<Stock> stocks) {
 		List<Stock> extracted = new ArrayList<>();
 		for (Stock stock : stocks) {
-			List<RecentOutput> roList = stock.getRo();
+			List<RecentOutput> roList = stock.getRecentOutputs();
 			
 			if ( isNetIncomeIncreasing(roList, IConstants.TYPE.YEAR, stock.getCode()) && isNetIncomeIncreasing(roList, IConstants.TYPE.QUARTER, stock.getCode()) ) {
 				extracted.add(stock);
