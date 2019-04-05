@@ -31,6 +31,7 @@ public class Extractor {
 		for (Stock stock : extracted) {
 			logger.info("{} {}", stock.getCode(), stock.getName());
 		}
+		logger.info("Extracted finished.");
 	}
 
 	private static Collection<Stock> getStockList() {

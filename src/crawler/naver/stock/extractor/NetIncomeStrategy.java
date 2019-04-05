@@ -19,7 +19,8 @@ import crawler.naver.stock.domain.Stock;
 public class NetIncomeStrategy implements IExtractStrategy {
 
 	private final static Logger logger = LoggerFactory.getLogger(NetIncomeStrategy.class);
-
+	private final float MIN_INCREASE_RATIO = 0.1f;
+	
 	@Override
 	public List<Stock> extract(Collection<Stock> stocks) {
 		List<Stock> extracted = new ArrayList<>();
@@ -42,9 +43,9 @@ public class NetIncomeStrategy implements IExtractStrategy {
 				if ( prevNetIncome == Integer.MAX_VALUE ) {
 					prevNetIncome = ro.getNetIncome();
 					continue;
-				} else if ( prevNetIncome != Integer.MAX_VALUE && prevNetIncome >= ro.getNetIncome() ) {
+				} else if ( prevNetIncome >= ro.getNetIncome() ) {
 					return false;
-				} else if ( prevNetIncome != Integer.MAX_VALUE && prevNetIncome < ro.getNetIncome() ) {
+				} else if ( prevNetIncome < ro.getNetIncome() ) {
 					bool.add(true);
 				}
 				prevNetIncome = ro.getNetIncome();

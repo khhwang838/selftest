@@ -2,13 +2,56 @@ package _temp;
 
 import java.util.Date;
 import java.util.Scanner;
+import java.util.UUID;
 
-public class Main {
+public class SomeTests {
 
 	public static void main(String[] args) {
-		Date f = new Date(1513231414000L);
-		System.out.println(f);
-		System.out.println(f);
+		boolean answer = true;
+		String s = "1234";
+      if(s.length() != 4 && s.length() != 6){
+//    	    return false;
+          System.out.println(false);
+          return;
+      }
+      try {
+          Integer.parseInt(s);
+      } catch (NumberFormatException e) {
+//          return false;
+          System.out.println(false);
+      }
+//      return answer;
+      System.out.println(answer);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		// 2b2a60f6-58ad-4069-aa6d-b1649c590231
+		// 2b2a60f658ad4069aa6db1649c590231
+//		System.out.println(UUID.randomUUID().toString().replaceAll("-", ""));
+
+		// 1. ID 조회 (가장 큰 ID값 조회, select)
+		// select max(id) from [테이블명]
+		// 2. 조회한 ID를 LottoData number.setId(id);
+		// 3. DB에 저장 (insert)
+		// insert into [테이블명] values ({id}, {num1}, {num2});
+//		insert into [테이블명] (id, num6, num5, num4...) values ({id}, {num6});
+		
+		
+		
+//		Date f = new Date(1513231414000L);
+//		System.out.println(f);
+//		System.out.println(f);
 	}
 	private static void test2() {
 		String a = "";
