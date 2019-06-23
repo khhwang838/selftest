@@ -22,10 +22,11 @@ public class BiggerIsGreater {
 
 		char[] chars = w.toCharArray();
 		boolean isSwapped = false;
+
 		for (int index = chars.length - 1; index > 0; index--) {
 			if (chars[index - 1] < chars[index]) {
 				// swap
-				String wSub = w.substring(index);
+				String wSub = w.substring(index); // d
 				
 				// sub-array만 추출하여 정렬
 				char[] wSubArr = wSub.toCharArray();

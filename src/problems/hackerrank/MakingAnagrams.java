@@ -57,6 +57,7 @@ public class MakingAnagrams {
         Scanner in = new Scanner(System.in);
         String a = in.next();
         String b = in.next();
+        in.close();
         System.out.println(numberNeeded(a, b));
     }
     

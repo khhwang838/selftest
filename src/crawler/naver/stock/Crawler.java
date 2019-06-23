@@ -35,16 +35,21 @@ public class Crawler {
 			+ ", roe, debt_rate, quick_rate, reserve_rate, eps, bps, dividends_per_share" + ", market_value_dividend_rate, payout_rate) "
 			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-	public static void main(String[] args) throws IOException, InterruptedException {
-		String dataFilePath = "/Users/KH/git/selftest/src/crawler/naver/stock/상장법인목록_180617.xlsx";
+	private final static String SELECT_DATA = "select * from naver_stock where code = ? and settlement_type = ? and settlement_yyyymm = ?";
+	
+	public static void main(String[] args) throws IOException, InterruptedException, SQLException {
+		String dataFilePath = "/Users/KH/git/selftest/src/crawler/naver/stock/상장법인목록_190505(유가증권).xlsx";
 		String destBaseUrl = "http://finance.naver.com/item/main.nhn?code=";
-		Connection con = null;
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
 		String url = "jdbc:postgresql://localhost/stock";
 		String user = "stock";
 		String password = "stock";
+		Connection con = DriverManager.getConnection(url, user, password);
+		con.setAutoCommit(false);
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+
 		final int startStockItemRowNum = 2;
+		
 		Map<String, String> params = makeParamMap(dataFilePath, startStockItemRowNum);
 
 		logger.debug("Read data from file. cnt:{}, {}", params.keySet().size(), params);
@@ -172,7 +177,24 @@ public class Crawler {
 						break;
 					}
 				}
-				if (hasAtLeastOneValidNumber) {
+				
+				boolean isNewData = true;
+				try {
+					
+					stmt = con.prepareStatement(SELECT_DATA);
+					stmt.setString(1, stock.getCode());
+					stmt.setString(2, recentOutput.getSettlementType());
+					stmt.setString(3, recentOutput.getSettlementYyyyMm());
+					rs = stmt.executeQuery();
+					isNewData = rs.wasNull();
+				} catch (Exception e) {
+					logger.error("Select data failed.", e);
+				} finally {
+					rs.close();
+					stmt.close();
+				}
+				
+				if (hasAtLeastOneValidNumber && isNewData) {
 					logger.debug("[{}] Adding recent output. {}", stock.getName(), recentOutput);
 					recentOutputs.add(recentOutput);
 				}
@@ -180,7 +202,7 @@ public class Crawler {
 
 			// 종목 단위로 데이터베이스에 저장
 			try {
-				con = DriverManager.getConnection(url, user, password);
+//				con = DriverManager.getConnection(url, user, password);
 				stmt = con.prepareStatement(INSERT_DATA);
 
 				// List<RecentOutput> recentOutputs = stock.getRecentOutputs();
@@ -215,11 +237,10 @@ public class Crawler {
 				// }
 				stmt.executeBatch();
 				stmt.clearBatch();
-				// con.commit(); // Commented out because of "Cannot commit when auto-commit is enabled." error message.
+				con.commit(); // Commented out because of "Cannot commit when auto-commit is enabled." error message.
 
 			} catch (SQLException e) {
-				logger.error("SQLstate:{}, errorMsg:{}", e.getSQLState(), e.getMessage());
-				e.printStackTrace();
+				logger.error("SQLstate:{}, errorMsg:{}", e.getSQLState(), e.getNextException(), e);
 				// logger.error("Inserting exception: ERR_CODE: {}, ERR_MSG: {}, {}", e.getErrorCode(), e.getMessage(), stock, e);
 				// while( e.getNextException() != null ) {
 				// e = e.getNextException();
@@ -231,8 +252,6 @@ public class Crawler {
 						rs.close();
 					if (stmt != null)
 						stmt.close();
-					if (con != null)
-						con.close();
 				} catch (Exception e) {
 					logger.error("Closeable objects closing error: {}", e);
 				}
@@ -241,6 +260,7 @@ public class Crawler {
 
 			Thread.sleep(randomTimeForSleep());
 		}
+		con.close();
 	}
 
 	private static String getSettlementType(int colIndex) {
@@ -261,7 +281,7 @@ public class Crawler {
 	}
 
 	private static int randomTimeForSleep() {
-		int min = 5, max = 15;
+		int min = 5, max = 10;
 		int sleepMillis = (int) (Math.random() * max + min) * 1000;
 		logger.debug("Sleeping {} seconds.", sleepMillis);
 		return sleepMillis;
@@ -281,7 +301,7 @@ public class Crawler {
 		int companyNameIdx = 0;
 		int companyCodeIdx = 1;
 
-		XSSFSheet sheet = workbook.getSheetAt(1);
+		XSSFSheet sheet = workbook.getSheetAt(0);
 
 		Map<String, String> result = new LinkedHashMap<>();
 		// 행의 수
