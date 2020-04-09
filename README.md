@@ -1,2 +1,6 @@
-# selftest
-이런저런 테스트 샘플 관리용도
+# This repository is for individual programming study.
+
+This repository contains
+- Test of java basic classes/methods
+- Test of classes/methods from spring framework
+- Online algorithm problems
